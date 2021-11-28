@@ -1,16 +1,61 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import { Ukrainian } from "flatpickr/dist/l10n/uk.js"
+import Notiflix from 'notiflix';
 
 flatpickr.localize(Ukrainian);
 require("flatpickr/dist/themes/dark.css");
 
+Notiflix.Notify.init({
+  width: '320px',
+  position: 'center-top',
+  distance: '10px',
+  opacity: 1,
+  fontSize: '16px'
+});
+
+const body = document.querySelector('body');
+const inputEl = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
-const days = document.querySelector('span[data-days]');
-const hours = document.querySelector('span[data-hours]');
-const minutes = document.querySelector('span[data-minutes]');
-const seconds = document.querySelector('span[data-seconds');
-// const values = document.querySelectorAll('.value');
+const daysEl = document.querySelector('span[data-days]');
+const hoursEl = document.querySelector('span[data-hours]');
+const minutesEl = document.querySelector('span[data-minutes]');
+const secondsEl = document.querySelector('span[data-seconds');
+const timerEl = document.querySelector('.timer');
+const fieldEl = document.querySelectorAll('.field');
+const valueEl = document.querySelectorAll('.value');
+const labelEl = document.querySelectorAll('.label');
+
+body.style.paddingLeft = '2vmin';
+
+inputEl.style.fontSize = '3vmin';
+
+startBtn.style.fontSize = '3vmin';
+startBtn.style.textTransform = 'uppercase';
+
+timerEl.style.display = 'flex';
+timerEl.style.marginTop = '3vmin';
+
+fieldEl.forEach(field => {
+    field.style.display = 'flex';
+    field.style.flexDirection = 'column';
+    field.style.alignItems = 'center';
+    field.style.marginLeft = '2vmin';
+})
+
+fieldEl[0].style.marginLeft = '0';
+
+valueEl.forEach(value => {
+    value.style.fontSize = '8vmin';
+    value.style.lineHeight = '1.1';
+});
+
+labelEl.forEach(label => {
+    label.style.fontSize = '3vmin';
+    label.style.lineHeight = '1.1';
+    label.style.textTransform = 'uppercase';
+
+})
 
 let currentDate = new Date();
 let selectedDate = new Date();
@@ -42,7 +87,8 @@ const options = {
         selectedDate = selectedDates[0];
         if (selectedDate.getTime() < currentDate.getTime()) {
             startBtn.setAttribute('disabled', 'true');
-            window.alert("Please choose a date in the future")
+            // window.alert("Please choose a date in the future")
+            Notiflix.Notify.failure('Please choose a date in the future');
         } else {
             startBtn.removeAttribute('disabled');
             time = selectedDate.getTime() - currentDate.getTime();
@@ -58,10 +104,10 @@ const addLeadingZero = value => String(value).padStart(2, '0');
 const timer = () => {
     const endTime = convertMs(time);
 
-    days.textContent = addLeadingZero(endTime.days);
-    hours.textContent = addLeadingZero(endTime.hours);
-    minutes.textContent = addLeadingZero(endTime.minutes);
-    seconds.textContent = addLeadingZero(endTime.seconds);
+    daysEl.textContent = addLeadingZero(endTime.days);
+    hoursEl.textContent = addLeadingZero(endTime.hours);
+    minutesEl.textContent = addLeadingZero(endTime.minutes);
+    secondsEl.textContent = addLeadingZero(endTime.seconds);
 }
 
 let timerId = null;
