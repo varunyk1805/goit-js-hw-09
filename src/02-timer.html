@@ -9,10 +9,12 @@
   <body>
     <p><a href="index.html">Go back</a></p>
 
-    <input type="text" id="datetime-picker" />
-    <button type="button" data-start>Start</button>
+    <p style="font-size:3vmin; line-height:1.1; margin-bottom:5px">Select a date</p>
+    <input type="text" id="datetime-picker" style="font-size: 3vmin;" />
+    <button type="button" data-start style="font-size: 3vmin; text-transform: uppercase">Start</button>
 
-    <div class="timer">
+    <p class="result" style="font-size:3vmin; line-height:1.1; margin:10px 0;">Until 0000-00-00 00:00 left:</p>
+    <div class="timer" style="display: flex; margin-top: 3vmin;">
       <div class="field">
         <span class="value" data-days>00</span>
         <span class="label">Days</span>
