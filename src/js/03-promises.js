@@ -36,15 +36,18 @@ stepInput.addEventListener('blur', () => {
 })
 amountInput.addEventListener('blur', () => {
   amount = Number(amountInput.value);
+  console.log(amount);
 })
 
-const submitForm = (event) => {
-  event.preventDefault();
+const submitForm = () => {
+  if (delay === 0 || step === 0 || amount === 0) return;
+
   for (let i = 1; i <= amount; i += 1) {
     createPromise(i, delay);
     delay += step;
-  }
+  };
 
+  amount = 0;
   delayInput.value = '';
   stepInput.value = '';
   amountInput.value = '';
