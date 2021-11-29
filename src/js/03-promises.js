@@ -1,22 +1,22 @@
 import Notiflix from 'notiflix';
 
 const createPromise = (position, delay) => {
-  return new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        resolve(`Fulfilled promise ${position} in ${delay}ms`)
+        resolve(`Fulfilled promise ${position} in ${delay}ms`);
       } else {
-        reject(`Rejected promise ${position} in ${delay}ms`)
+        reject(`Rejected promise ${position} in ${delay}ms`);
       }
-    }, delay)
+    }, delay);
   })
     .then((value) => {
       Notiflix.Notify.success(value);
     })
     .catch((error) => {
       Notiflix.Notify.failure(error);
-    })
+    });
 };
 
 const delayInput = document.querySelector('input[name="delay"]');
@@ -44,6 +44,10 @@ const submitForm = (event) => {
     createPromise(i, delay);
     delay += step;
   }
+
+  delayInput.value = '';
+  stepInput.value = '';
+  amountInput.value = '';
 }
 
 submitBtn.addEventListener('click', submitForm);
