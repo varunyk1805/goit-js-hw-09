@@ -39,7 +39,9 @@ amountInput.addEventListener('blur', () => {
   console.log(amount);
 })
 
-const submitForm = () => {
+const submitForm = event => {
+  event.preventDefault();
+
   if (delay === 0 || step === 0 || amount === 0) return;
 
   for (let i = 1; i <= amount; i += 1) {
